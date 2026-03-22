@@ -36,6 +36,9 @@
       } else if (album.size === 'wide') {
         classes += ' album-item--wide';
       }
+      if (spacing.value === 0) {
+        classes += ' album-item--no-radius';
+      }
       return classes;
     };
 

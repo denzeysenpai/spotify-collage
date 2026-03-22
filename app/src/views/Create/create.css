@@ -209,6 +209,10 @@
     aspect-ratio: 1;
 }
 
+.album-item--no-radius {
+    border-radius: 0;
+}
+
 .album-item--large {
     grid-column: span 2;
     grid-row: span 2;
