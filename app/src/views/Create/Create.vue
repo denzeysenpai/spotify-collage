@@ -20,7 +20,7 @@
     const grayscale = ref(false);
     const colorOverlay = ref(true);
     const spacing = ref(32);
-    const aspectRatio = ref('1:1');
+    const aspectRatio = ref('Auto');
     const borderRadius = ref(12);
 
     const gridClasses = computed(() => {
@@ -51,6 +51,8 @@
 
     const aspectRatioStyle = computed(() => {
       switch (aspectRatio.value) {
+        case 'Auto':
+          return { aspectRatio: 'auto' };
         case '4:5':
           return { aspectRatio: '4/5' };
         case '16:9':
@@ -233,7 +235,7 @@
               <span class="control-label">Aspect Ratio</span>
               <div class="aspect-ratio-buttons">
                 <button
-                  v-for="ratio in ['1:1', '4:5', '16:9']"
+                  v-for="ratio in ['Auto', '1:1', '4:5', '16:9']"
                   :key="ratio"
                   @click="setAspectRatio(ratio)"
                   :class="['ratio-btn', { 'ratio-btn--active': aspectRatio === ratio }]"
