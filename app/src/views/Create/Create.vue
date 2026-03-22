@@ -15,6 +15,7 @@
     const grayscale = ref(false);
     const spacing = ref(32);
     const aspectRatio = ref('1:1');
+    const borderRadius = ref(12);
 
     const gridClasses = computed(() => {
       switch (layout.value) {
@@ -57,6 +58,11 @@
     const updateSpacing = (event: Event) => {
       const target = event.target as HTMLInputElement;
       spacing.value = parseInt(target.value);
+    };
+
+    const updateBorderRadius = (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      borderRadius.value = parseInt(target.value);
     };
 
     onMounted(() => {
@@ -179,6 +185,7 @@
             v-for="album in albums"
             :key="album.id"
             :class="albumClasses(album)"
+            :style="{ borderRadius: spacing === 0 ? '0' : `${borderRadius}px` }"
           >
             <img 
               :src="album.src" 
@@ -219,6 +226,18 @@
                 :value="spacing"
                 @input="updateSpacing"
                 class="spacing-slider"
+              />
+            </div>
+            <div class="control-divider" />
+            <div class="control-group">
+              <span class="control-label">Border Radius</span>
+              <input 
+                type="range" 
+                min="0" 
+                max="24" 
+                :value="borderRadius"
+                @input="updateBorderRadius"
+                class="border-radius-slider"
               />
             </div>
           </div>
