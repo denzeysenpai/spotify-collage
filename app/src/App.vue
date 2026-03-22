@@ -49,6 +49,20 @@ const isActiveLink = (path: string) => {
   <main class="main-content">
     <RouterView />
   </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <RouterLink to="/privacy" class="footer-link">Privacy</RouterLink>
+        <a href="https://github.com" class="footer-link" target="_blank" rel="noopener noreferrer">Github</a>
+        <RouterLink to="/terms" class="footer-link">Terms</RouterLink>
+      </div>
+      <div class="footer-brand">Spotify Collage</div>
+      <p class="footer-copyright">
+        © 2026 Spotify Collage. Editorial curation for your sonic history. Built for the modern collector.
+      </p>
+    </div>
+  </footer>
 </template>
 
 <style scoped>
@@ -157,6 +171,65 @@ const isActiveLink = (path: string) => {
   padding-top: 80px;
 }
 
+/* Footer Styles */
+.footer {
+  width: 100%;
+  padding: 3rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  margin-top: 6rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 3rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #1ed760;
+  opacity: 0.8;
+}
+
+.footer-brand {
+  color: #1ed760;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  font-size: 1.25rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.footer-copyright {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  max-width: 28rem;
+  line-height: 1.4;
+}
+
 @media (max-width: 768px) {
   .navbar-content {
     padding: 1rem;
@@ -177,6 +250,23 @@ const isActiveLink = (path: string) => {
   
   .main-content {
     padding-top: 70px;
+  }
+  
+  .footer-content {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+  
+  .footer-links {
+    gap: 1.5rem;
+  }
+  
+  .footer-brand {
+    font-size: 1.125rem;
+  }
+  
+  .footer-copyright {
+    font-size: 0.625rem;
   }
 }
 </style>

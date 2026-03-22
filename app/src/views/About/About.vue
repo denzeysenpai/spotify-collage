@@ -68,13 +68,13 @@
           </div>
         </section>
 
-        <section>
+        <!-- <section>
           <div />
           <h3>Ready to see your sound?</h3>
           <router-link to="/create">
             Create Your First Collage
           </router-link>
-        </section>
+        </section> -->
       </div>
     </div>
   </div>
