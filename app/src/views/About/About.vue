@@ -5,7 +5,7 @@
     name: "About",
     setup() {
         const architectureItems = [
-        { label: "Framework", value: "React" },
+        { label: "Framework", value: "Vue" },
         { label: "Build Tool", value: "Vite" },
         { label: "Security", value: "OAuth 2.0" },
         ];
@@ -33,7 +33,7 @@
         <div>
           <div />
           <img
-            src="https://picsum.photos/seed/about/1200/600"
+            src="@/assets/images/james-stamler-k3heD_KwH0A-unsplash.jpg"
             alt="Abstract visualization"
             referrerpolicy="no-referrer"
           />
