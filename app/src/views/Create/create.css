@@ -2,24 +2,31 @@
 .create-view {
     display: flex;
     min-height: 100vh;
-    padding-top: 96px;
     background: #191414;
     color: #ffffff;
 }
 
 /* Sidebar */
 .sidebar {
-    position: fixed;
+    position: absolute;
     left: 0;
-    top: 96px;
-    height: calc(100vh - 96px);
+    top: 0;
     width: 16rem;
     background: rgba(255, 255, 255, 0.05);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
-    padding-top: 2rem;
-    z-index: 40;
+    padding: 2rem 0;
+    height: 100%;
+    overflow-y: auto;
+    margin: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar--open {
+    transform: translateX(0);
 }
 
 .sidebar-header {
@@ -33,7 +40,6 @@
     font-weight: 700;
     color: #1ed760;
     letter-spacing: -0.025em;
-    margin-bottom: 0.25rem;
 }
 
 .sidebar-subtitle {
@@ -120,7 +126,6 @@
 
 /* Main Canvas */
 .main-canvas {
-    margin-left: 16rem;
     flex-grow: 1;
     padding: 3rem;
     background: #191414;
@@ -186,18 +191,20 @@
     display: grid;
     gap: 2rem;
     transition: all 0.5s ease;
+    width: 100%;
+    height: 100%;
 }
 
-.grid-cols-4 {
-    grid-template-columns: repeat(4, 1fr);
+.grid-cols-auto-fit {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.grid-cols-3 {
-    grid-template-columns: repeat(3, 1fr);
+.grid-cols-auto-fit-mosaic {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
-.grid-cols-6 {
-    grid-template-columns: repeat(6, 1fr);
+.grid-cols-auto-fit-chaotic {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
 .album-item {
@@ -276,18 +283,23 @@
 .controls-overlay {
     margin-top: 4rem;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 2rem;
     border-radius: 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .controls-left {
     display: flex;
-    align-items: center;
-    gap: 3rem;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
 }
 
 .control-group {
@@ -307,6 +319,61 @@
 .aspect-ratio-buttons {
     display: flex;
     gap: 0.75rem;
+}
+
+.layout-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-direction: column;
+}
+
+.color-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.layout-btn,
+.color-btn {
+    margin: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.layout-btn:hover,
+.color-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.layout-btn--active,
+.color-btn--active {
+    background: #1ed760;
+    color: #000000;
+}
+
+.layout-btn svg,
+.color-btn svg {
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+}
+
+.controls-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .ratio-btn {
@@ -424,16 +491,16 @@
         width: 14rem;
     }
 
-    .main-canvas {
-        margin-left: 14rem;
+    .grid-cols-auto-fit {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     }
 
-    .grid-cols-4 {
-        grid-template-columns: repeat(3, 1fr);
+    .grid-cols-auto-fit-mosaic {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     }
 
-    .grid-cols-6 {
-        grid-template-columns: repeat(4, 1fr);
+    .grid-cols-auto-fit-chaotic {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
 
     .album-item--large {
@@ -442,18 +509,32 @@
     }
 
     .album-item--wide {
-        grid-column: span 1;
+        grid-column: span 2;
+    }
+
+    .controls-overlay {
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .controls-left {
+        gap: 1.5rem;
+    }
+
+    .layout-buttons,
+    .color-buttons {
+        flex-wrap: wrap;
+    }
+
+    .spacing-slider,
+    .border-radius-slider {
+        width: 10rem;
     }
 }
 
 @media (max-width: 768px) {
     .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-    }
-
-    .sidebar--open {
-        transform: translateX(0);
+        display: none;
     }
 
     .main-canvas {
@@ -472,13 +553,13 @@
     }
 
     .canvas-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
-    .grid-cols-4,
-    .grid-cols-3,
-    .grid-cols-6 {
-        grid-template-columns: repeat(2, 1fr);
+    .grid-cols-auto-fit,
+    .grid-cols-auto-fit-mosaic,
+    .grid-cols-auto-fit-chaotic {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 
     .controls-overlay {
@@ -505,20 +586,21 @@
     }
 
     .canvas-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
-    .grid-cols-4,
-    .grid-cols-3,
-    .grid-cols-6 {
-        grid-template-columns: 1fr;
+    .grid-cols-auto-fit,
+    .grid-cols-auto-fit-mosaic,
+    .grid-cols-auto-fit-chaotic {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
 
     .controls-overlay {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
-    .spacing-slider {
+    .spacing-slider,
+    .border-radius-slider {
         width: 100%;
     }
 }
