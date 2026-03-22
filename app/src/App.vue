@@ -4,7 +4,7 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 const route = useRoute()
 
 const navLinks = [
-  { name: 'Home', path: '/home' },
+  { name: 'Home', path: '/' },
   { name: 'Create', path: '/create' },
   { name: 'About', path: '/about' },
 ]
